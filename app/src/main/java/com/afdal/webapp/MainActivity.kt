@@ -29,9 +29,12 @@ class MainActivity : AppCompatActivity() {
         // WebViewClient allows you to handle
         // onPageFinished and override Url loading.
         webView.webViewClient = WebViewClient()
-
+        if (savedInstanceState == null)
+        {
+            webView.loadUrl("https://www.islambook.com/")
+        }
         // this will load the url of the website
-        webView.loadUrl("https://www.islambook.com/")
+
         //   binding.webView.loadUrl("https://www.youtube.com/")
 
         // this will enable the javascript settings
@@ -63,5 +66,15 @@ class MainActivity : AppCompatActivity() {
         super.onBackPressed()
         if (webView.canGoBack()) webView.goBack()
         else super.onBackPressed()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        webView.saveState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        webView.restoreState(savedInstanceState)
     }
 }
